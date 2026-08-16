@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="pt-BR">
 
 <head>
@@ -703,6 +703,13 @@
       transform: none
     }
 
+    .prod-fab.in-cart:disabled,
+    .pd-veja-fab.in-cart:disabled {
+      background: var(--tc);
+      color: #fff;
+      opacity: 1
+    }
+
     .prod-body {
       padding: 16px 16px 16px;
       display: flex;
@@ -1313,6 +1320,12 @@
 
     .pd-add-btn:disabled:hover {
       background: var(--vc)
+    }
+
+    .pd-add-btn.added:disabled,
+    .pd-add-btn.added:disabled:hover {
+      background: var(--tc);
+      opacity: .8
     }
 
     .pd-veja-section {
@@ -2983,7 +2996,20 @@
        • desc:  Descrição dos ingredientes
        • img:   Link de uma foto na internet
        • tags:  Etiquetas ['Vegano','Sem Glúten']
-    
+       • esgotado: true deixa o prato visível, mas bloqueia compra
+
+       Como usar esgotado:
+       {
+         id: 'p1',
+         nome: 'Nome do prato',
+         categoria: 'Pratos Principais',
+         preco: 54.00,
+         desc: 'Descrição',
+         img: 'foto.jpeg',
+         tags: ['Vegano'],
+         esgotado: true,
+       },
+
        Para ADICIONAR: copie um bloco {…}, e cole depois do último
        Para REMOVER: apague o bloco {…}, inteiro
        ───────────────────────────────────────────── */
@@ -3141,7 +3167,6 @@
       { id: 'congelados', label: 'Congelados' },
       { id: 'suplementos', label: 'Suplementos' },
       { id: 'higiene', label: 'Higiene & limpeza' },
-      { id: 'outros', label: 'Outros' },
     ];
 
     const FALLBACK_PRODUCT_IMAGE = 'https://toyama.com.br/wp-content/uploads/2020/08/Produto-Sem-Imagem-600-x-600px.jpg';
@@ -3151,8 +3176,10 @@
        ─────────────────────────────────────────────
        Cada bloco é um produto:
 
-        
-         img2: 'https://foto-extra-rotulo-ou-ingredientes (opcional)',
+       {
+         produto: ['Nome do produto', 'UNID', 17.0],
+         img: 'https://foto-do-produto.jpg',
+         img2: 'https://foto-extra-rotulo-ou-ingredientes.jpg', // opcional
          ingredientes: 'Texto (opcional)',
          contemGluten: false,
          info: 'Observações ao cliente (opcional)',
@@ -3163,7 +3190,7 @@
        • Nome e unidade ficam entre aspas simples.
        • Preço usa ponto, não vírgula: 17.0
        • A foto fica logo abaixo do produto, no campo img.
-       • Para marcar ESGOTADO: adicione esgotado: true, dentro do bloco.
+       • Para marcar ESGOTADO: adicione esgotado: true, dentro do bloco, logo depois do img ou info.
        • Para voltar ao estoque: apague essa linha ou troque para esgotado: false.
        • Para ADICIONAR: copie um bloco inteiro e cole abaixo.
        • Para REMOVER: apague o bloco inteiro.
@@ -3173,6 +3200,7 @@
         {
          produto: ['Abacate orgânico', 'KG', 17],
          img: 'https://boa.vtexassets.com/arquivos/ids/534847/Abacate-Organico-Bella-Mesa-300g.jpg?v=638478446998130000',
+         esgotado: true
       },
       {
          produto: ['Abacaxi orgânico', 'UNID', 25.7],
@@ -8869,15 +8897,27 @@
 
 
     const CATEGORIAS_ESPECIAIS = [
+      ['mercearia', ['alho organico triturado', 'alho orgânico triturado', 'alho triturado']],
       ['hortifruti', ['vagem macarrao', 'vagem macarrão']],
-      ['bebidas', ['kombucha', 'agua mineral', 'água mineral', 'agua de coco', 'água de coco']],
-      ['suplementos', ['100% whey', 'whey protein']],
+      ['hortifruti', ['maca fuji', 'maçã fuji', 'maca gala', 'maçã gala', 'maca golden', 'maçã golden', 'maca importada', 'maçã importada', 'maca nacional', 'maçã nacional', 'maca verde', 'maçã verde']],
+      ['bebidas', ['kombucha', 'agua mineral', 'água mineral', 'agua de coco', 'água de coco', 'caldo de cana', 'limonada', 'isotonico', 'isotônico']],
+      ['congelados', [
+        'acai original', 'açaí original', 'acem em cubos', 'acém em cubos', 'alcatra estrogonofe',
+        'coracao de frango', 'coração de frango', 'coxa de frango', 'coxinha da asa', 'coxao mole',
+        'coxão mole', 'dobradinha', 'edamame', 'figado organico', 'fígado orgânico', 'file de peito',
+        'filé de peito', 'file de tilapia', 'filé de tilápia', 'fraldinha', 'hamburguer defumado',
+        'hambúrguer defumado', 'hamburguinho', 'maminha', 'meio da asa', 'mini pizza', 'pastel de',
+        'patinho em cubos', 'posta vermelha', 'risoles', 'sobrecoxa', 'sorbet', 'tilapia', 'tilápia',
+        'tiras de peito',
+      ]],
+      ['refrigerados', ['ovos caipiras', 'ovos organicos', 'ovos orgânicos', 'ghee ', 'not mayo', 'requeveg']],
+      ['suplementos', ['100% whey', 'whey protein', 'coenzima', 'isofort', 'maca peruana', 'prata coloidal', 'propolis', 'própolis', 'polen', 'pólen', 'propomax']],
     ];
 
     const PALAVRAS_CATEGORIAS = [
       ['hortifruti', [
         'abacate', 'abacaxi', 'abobora', 'abóbora', 'abobrinha', 'acelga', 'agriao', 'agrião',
-        'aipim', 'aipo', 'alface', 'alho poro', 'alho poró', 'almeirao', 'almeirão',
+        'aipim', 'aipo', 'alface', 'alho organico', 'alho orgânico', 'alho poro', 'alho poró', 'almeirao', 'almeirão',
         'ameixa', 'amora', 'aspargo', 'atemoia', 'avocado', 'azedinha', 'banana',
         'batata', 'berinjela', 'beterraba', 'brocolis', 'brócolis', 'broto', 'caju ',
         'caqui', 'cara ', 'cará ', 'carambola', 'cebola', 'cebolinha', 'cenoura',
@@ -8897,12 +8937,14 @@
       ['congelados', [
         'congelado', 'congelada', 'sorvete', 'polpa', 'pao de queijo', 'pão de queijo',
         'lasanha', 'pizza congelada', 'hamburguer congelado', 'hambúrguer congelado',
-        'nuggets', 'empanado', 'picole', 'picolé',
+        'nuggets', 'empanado', 'picole', 'picolé', 'açaí', 'acai', 'carne ', 'bovina',
+        'frango ', 'peito de frango', 'asa ', 'tilápia', 'tilapia', 'hambúrguer', 'hamburguer',
+        'pizza', 'pastel', 'risoles',
       ]],
       ['refrigerados', [
         'iogurte', 'queijo', 'manteiga', 'requeijao', 'requeijão', 'leite ', 'bebida lactea',
         'bebida láctea', 'kefir', 'coalhada', 'ricota', 'cream cheese', 'tofu', 'tempeh',
-        'nata', 'creme de leite', 'doce de leite', 'fresco', 'fresca',
+        'nata', 'creme de leite', 'doce de leite', 'fresco', 'fresca', 'ovos ',
       ]],
       ['bebidas', [
         'suco', 'néctar', 'nectar', 'cha ', 'chá ', 'cafe ', 'café ', 'vinho', 'cerveja',
@@ -8913,12 +8955,18 @@
         'whey', 'proteina', 'proteína', 'colageno', 'colágeno', 'creatina', 'glutamina',
         'albumina', 'bcaa', 'omega', 'ômega', 'vitamina', 'multivitaminico', 'multivitamínico',
         'magnesio', 'magnésio', 'zinco', 'probiotico', 'probiótico', 'suplemento',
+        'guaraná moído', 'guarana moido',
       ]],
       ['higiene', [
         'shampoo', 'condicionador', 'sabonete', 'desodorante', 'creme dental', 'pasta dental',
         'fio dental', 'absorvente', 'fralda', 'lenço', 'lenco', 'higiene', 'detergente',
         'lava roupas', 'amaciante', 'limpador', 'sabao ', 'sabão ', 'esponja', 'alcool ',
-        'álcool ', 'multiuso', 'desinfetante',
+        'álcool ', 'multiuso', 'desinfetante', 'aloe vera', 'argila', 'balm labial',
+        'concentrado força', 'creme base', 'creme facial', 'creme modelador', 'creme para mãos',
+        'creme para maos', 'desodorate', 'desodorizante', 'difusor', 'enxaguante bucal',
+        'escova de dentes', 'gel dental', 'home spray', 'incenso', 'lava louças', 'lava loucas',
+        'leave in', 'puro gel', 'raspador de língua', 'raspador de lingua', 'sangue de dragão',
+        'sangue de dragao', 'serum facial', 'sérum facial', 'spray capilar',
       ]],
       ['mercearia', [
         'arroz', 'feijao', 'feijão', 'grao', 'grão', 'graos', 'grãos', 'farinha', 'macarrao',
@@ -8927,6 +8975,23 @@
         'vinagre', 'sal ', 'acucar', 'açúcar', 'coco ', 'cacau', 'castanha', 'amendoim',
         'amêndoa', 'amendoa', 'nozes', 'semente', 'chia', 'linhaça', 'linhaca', 'quinoa',
         'tapioca', 'xarope', 'chá', 'cha', 'tempero', 'patê', 'pate', 'conserva',
+        'achocolatado', 'adoçante', 'adocante', 'açafrão', 'acafrao', 'alecrim',
+        'amido de milho', 'barbecue', 'baunilha', 'bicarbonato', 'bisnaguinha', 'bisnaguinhas',
+        'brownie', 'calêndula', 'calendula', 'camomila', 'canela', 'canjica', 'capim cidreira',
+        'cardamomo', 'carqueja', 'cavalinha', 'chimichurri', 'clorin salad', 'colorau',
+        'corn flakes', 'cravo', 'cranberry', 'cúrcuma', 'curcuma', 'curry', 'drágea', 'dragea',
+        'eco friends', 'erva doce', 'erva mate', 'ervas finas', 'ervas provence', 'ervilha ',
+        'espaguete de pupunha', 'espinheira santa', 'extrato de baunilha', 'fava de baunilha',
+        'fermento', 'flocos de milho', 'fubá', 'fuba', 'gengibre cristalizado', 'gengibre em pó',
+        'gengibre em po', 'gengibre moído', 'gengibre moido', 'gergelim', 'ginseng', 'goma xantana',
+        'golden drink', 'golden milk', 'gritz', 'guaco', 'hibiscus', 'ketchup', 'lentilha ',
+        'louro', 'maca bite', 'macadâmia', 'macadamia', 'maionese', 'manjericão', 'manjericao',
+        'marcela', 'melado', 'milho de pipoca', 'milho mostarda', 'miso', 'missô', 'mix crispy',
+        'mix de frutas secas', 'mix de frutas vermelhas', 'mostarda', 'noz moscada', 'orégano',
+        'oregano', 'orelha de gato', 'pão ', 'pao ', 'páprica', 'paprica', 'pepita', 'pepitas',
+        'pimenta', 'pipoca', 'polvilho', 'pumpkin pie', 'rendang', 'salgadinho', 'seleta de legumes',
+        'shoyu', 'snack', 'tabletitos', 'tahine', 'talharim', 'tâmara', 'tamara', 'tâmaras',
+        'tamaras', 'tomilho', 'torraditas', 'waffle',
       ]],
     ];
 
@@ -8937,6 +9002,7 @@
       if (texto.startsWith('uva ')) return 'hortifruti';
       if (texto.startsWith('cha ') || texto.startsWith('chá ')) return 'bebidas';
       if (texto.startsWith('cafe ') || texto.startsWith('café ')) return 'bebidas';
+      if (texto.startsWith('maca ') && !texto.includes(' bite') && !texto.includes('peruana')) return 'hortifruti';
       return '';
     }
 
@@ -8945,7 +9011,7 @@
       const especial = categoriaEspecialProduto(texto);
       if (especial) return especial;
       const encontrada = PALAVRAS_CATEGORIAS.find(([, palavras]) => contemAlgumaPalavra(texto, palavras));
-      return encontrada ? encontrada[0] : 'outros';
+      return encontrada ? encontrada[0] : 'mercearia';
     }
 
     function unidadeDoProduto(unidade) {
@@ -8957,12 +9023,17 @@
       { id: 'frutas', label: 'Frutas' },
       { id: 'verduras', label: 'Verduras & folhas' },
       { id: 'legumes', label: 'Legumes & raízes' },
-      { id: 'outros', label: 'Ervas & outros' },
+      { id: 'ervas', label: 'Ervas & temperos' },
+    ];
+
+    const HORTI_ERVAS_KW = [
+      'cebolinha', 'coentro', 'hortela', 'hortelã', 'lavanda', 'manjerona', 'melissa',
+      'poejo', 'salvia', 'sálvia', 'salsa ', 'salsinha',
     ];
 
     const HORTI_VERDURAS_KW = [
       'alface', 'acelga', 'agriao', 'agrião', 'rucula', 'rúcula', 'espinafre', 'mostarda crespa', 'repolho',
-      'chicoria', 'chicória', 'almeirao', 'almeirão', 'escarola', 'coentro', 'hortela', 'hortelã', 'salsinha',
+      'chicoria', 'chicória', 'almeirao', 'almeirão', 'escarola', 'azedinha', 'broto', 'brotos',
       'salsão', 'salsao', 'salsa ', 'manjerona', 'micro verdes', 'poejo', 'salvia', 'sálvia', 'dente de leão',
       'dente de leao', 'lavanda', 'ora pro nobis', 'jambu', 'jambú', 'endivia', 'endívia',
     ];
@@ -8970,7 +9041,8 @@
       'tomate', 'cenoura', 'batata', 'cebola', 'chuchu', 'berinjela', 'abobrinha', 'abóbora', 'abobora',
       'mandioca', 'inhame', 'beterraba', 'nabo', 'rabanete', 'pepino', 'quiabo', 'vagem', 'pimentao', 'pimentão',
       'milho verde', 'brocolis', 'brócolis', 'cogumelo', 'palmito', 'aipim', 'cará', 'aspargo', 'alho por',
-      'radite', 'couve-flor', 'couve flor', 'nabo ', 'abobrinha',
+      'radite', 'couve-flor', 'couve flor', 'nabo ', 'abobrinha', 'alho organico', 'alho orgânico',
+      'gengibre', 'mandioquinha',
     ];
     const HORTI_FRUTAS_KW = [
       'abacate', 'abacaxi', 'banana', 'caju', 'caqui', 'carambola', 'damasco', 'figo', 'framboesa', 'framboesa',
@@ -8982,20 +9054,29 @@
 
     function hortifrutiSubcategoria(nome) {
       const t = normalizarProdutoTexto(nome);
+      if (contemAlgumaPalavra(t, HORTI_ERVAS_KW)) return 'ervas';
       if (contemAlgumaPalavra(t, HORTI_VERDURAS_KW)) return 'verduras';
       if (t.includes('couve') && !t.includes('flor')) return 'verduras';
       if (contemAlgumaPalavra(t, HORTI_LEGUMES_KW)) return 'legumes';
       if (contemAlgumaPalavra(t, HORTI_FRUTAS_KW)) return 'frutas';
-      return 'outros';
+      return 'legumes';
     }
+
+    const valorMarcaEsgotado = valor => {
+      if (valor === true || valor === 1) return true;
+      const texto = normalizarProdutoTexto(valor);
+      return ['true', 'sim', 's', 'yes', 'y', 'esgotado', 'indisponivel'].includes(texto);
+    };
+    const itemEstaEsgotado = item => valorMarcaEsgotado(item?.esgotado);
 
     function buildProducts() {
       return PRODUTOS.map((entry, index) => {
         const { produto, img, img2, ingredientes, contemGluten, info, esgotado } = entry;
-        const [nome, unidadeOriginal, preco, badge] = produto;
+        const [nome, unidadeOriginal, preco, badge, esgotadoNoProduto] = produto;
         const nomeLimpo = String(nome || '').trim();
         const unidade = unidadeDoProduto(unidadeOriginal);
-        const badgeFinal = badge || '';
+        const esgotadoFinal = valorMarcaEsgotado(esgotado) || valorMarcaEsgotado(esgotadoNoProduto) || valorMarcaEsgotado(badge);
+        const badgeFinal = valorMarcaEsgotado(badge) ? '' : (badge || '');
 
         return {
           id: index + 1,
@@ -9009,7 +9090,7 @@
           info: info || '',
           contemGluten: contemGluten === true ? true : contemGluten === false ? false : null,
           badge: badgeFinal,
-          esgotado: esgotado === true,
+          esgotado: esgotadoFinal,
         };
       });
     }
@@ -9018,7 +9099,7 @@
 
     /* ─── UTILS ─── */
     const fmtBRL = v => 'R$ ' + v.toFixed(2).replace('.', ',');
-    const catLabel = id => CATS.find(c => c.id === id)?.label || 'Outros';
+    const catLabel = id => CATS.find(c => c.id === id)?.label || 'Mercearia';
     const onlyDigits = v => (v || '').replace(/\D/g, '');
     const normalizeText = v => (v || '').normalize('NFD').replace(/[\u0300-\u036f]/g, '').toLowerCase().replace(/[^a-z0-9]+/g, ' ').trim();
     const formatCEP = v => {
@@ -9192,25 +9273,42 @@
       );
     }
 
-    function ProductCard({ p, cartQty, onAdd, onOpen }) {
+    function ProductCard({ p, cartQty, onAdd, onUpdateCart, onOpen }) {
       const weighted = isWeightedHortifruti(p);
       const step = getQtyStep(p);
       const minQty = getMinQty(p);
       const [qty, setQty] = useState(() => minQty);
       const [gramsInput, setGramsInput] = useState(() => String(qtyToGrams(p, minQty)));
+      const inCart = cartQty > 0;
+      const displayedQty = inCart ? cartQty : qty;
       const selectedQty = weighted && gramsInput ? gramsToQty(p, gramsInput) : qty;
-      const changeQty = delta => setQty(q => {
-        const next = weighted && delta < 0 && q <= minQty ? minQty : normalizeQty(p, q + delta);
-        if (weighted) setGramsInput(String(qtyToGrams(p, next)));
-        return next;
-      });
+      useEffect(() => {
+        if (weighted && inCart) setGramsInput(String(qtyToGrams(p, cartQty)));
+      }, [weighted, inCart, cartQty, p.id]);
+      const changeQty = delta => {
+        if (inCart) {
+          onUpdateCart && onUpdateCart(p.id, delta);
+          return;
+        }
+        setQty(q => {
+          const next = weighted && delta < 0 && q <= minQty ? minQty : normalizeQty(p, q + delta);
+          if (weighted) setGramsInput(String(qtyToGrams(p, next)));
+          return next;
+        });
+      };
       const changeGrams = value => {
         const grams = value.replace(/\D/g, '');
         setGramsInput(grams);
+        if (inCart) return;
         if (grams) setQty(gramsToQty(p, grams));
       };
       const fixGramsInput = () => {
         const safe = gramsInput ? gramsToQty(p, gramsInput) : minQty;
+        if (inCart) {
+          onUpdateCart && onUpdateCart(p.id, safe - cartQty);
+          setGramsInput(String(qtyToGrams(p, safe)));
+          return;
+        }
         setQty(safe);
         setGramsInput(String(qtyToGrams(p, safe)));
       };
@@ -9218,18 +9316,19 @@
         ? `✓ ${formatQty(p, selectedQty)} de ${p.nome} adicionado!`
         : '✓ ' + p.nome + ' adicionado!';
       const hasRichInfo = !!(p.ingredientes || p.info || p.img2 || p.contemGluten === true || p.contemGluten === false);
+      const esgotado = itemEstaEsgotado(p);
       return (
-        <div className={`prod-card${p.esgotado ? ' esgotado' : ''}`} onClick={() => onOpen(p)}>
+        <div className={`prod-card${esgotado ? ' esgotado' : ''}`} onClick={() => onOpen(p)}>
           <div className="prod-img-wrap">
             <img className="prod-img" src={p.img} alt={p.nome} loading="lazy" onError={e => { e.currentTarget.onerror = null; e.currentTarget.src = FALLBACK_PRODUCT_IMAGE; }} />
-            {p.esgotado ? <span className="prod-badge esgotado-badge">Esgotado</span> : (p.badge && <span className="prod-badge">{p.badge}</span>)}
+            {esgotado ? <span className="prod-badge esgotado-badge">Esgotado</span> : (p.badge && <span className="prod-badge">{p.badge}</span>)}
             <button
-              className={`prod-fab${cartQty > 0 ? ' in-cart' : ''}`}
-              onClick={e => { e.stopPropagation(); if (p.esgotado) return showToast('Produto esgotado no momento'); onAdd(p, selectedQty); showToast(toastMsg); }}
-              title={p.esgotado ? 'Produto esgotado' : 'Adicionar ao carrinho'}
-              disabled={p.esgotado}
+              className={`prod-fab${inCart ? ' in-cart' : ''}`}
+              onClick={e => { e.stopPropagation(); if (esgotado) return showToast('Produto esgotado no momento'); if (inCart) return; onAdd(p, selectedQty); showToast(toastMsg); }}
+              title={esgotado ? 'Produto esgotado' : (inCart ? 'Produto já está no carrinho' : 'Adicionar ao carrinho')}
+              disabled={esgotado || inCart}
             >
-              {p.esgotado ? '×' : (cartQty > 0 ? '✓' : '+')}
+              {esgotado ? '×' : (inCart ? '✓' : '+')}
             </button>
           </div>
           <div className="prod-body">
@@ -9241,13 +9340,13 @@
             {isAboboraKgHorti(p) && (
               <div style={{ fontSize: '.65rem', color: 'var(--tc)', marginTop: 4, lineHeight: 1.35 }}>Pedido mínimo 500&nbsp;g (abóbora não fraciona abaixo disso).</div>
             )}
-            {p.esgotado && <div className="stock-note">Indisponível até reposição</div>}
+            {esgotado && <div className="stock-note">Indisponível até reposição</div>}
             {hasRichInfo && (
               <button type="button" className="prod-info-link" onClick={e => { e.stopPropagation(); onOpen(p); }}>Ver ingredientes, glúten e fotos</button>
             )}
             <div className="prod-add" onClick={e => e.stopPropagation()}>
               <div className="qty-ctrl">
-                <button className="qty-btn" onClick={() => changeQty(-step)} disabled={p.esgotado}>−</button>
+                <button className="qty-btn" onClick={() => changeQty(-step)} disabled={esgotado}>−</button>
                 {weighted
                   ? (
                     <label className="qty-gram-wrap">
@@ -9259,13 +9358,13 @@
                         inputMode="numeric"
                         pattern="[0-9]*"
                         aria-label={`Gramas de ${p.nome}`}
-                        disabled={p.esgotado}
+                        disabled={esgotado}
                       />
                       <span className="qty-gram-unit">g</span>
                     </label>
                   )
-                  : <span className="qty-val">{formatQty(p, qty)}</span>}
-                <button className="qty-btn" onClick={() => changeQty(step)} disabled={p.esgotado}>+</button>
+                  : <span className="qty-val">{formatQty(p, displayedQty)}</span>}
+                <button className="qty-btn" onClick={() => changeQty(step)} disabled={esgotado}>+</button>
               </div>
             </div>
           </div>
@@ -9273,21 +9372,32 @@
       );
     }
 
-    function PratoCard({ p, cartQty, onAdd, onOpen }) {
+    function PratoCard({ p, cartQty, onAdd, onUpdateCart, onOpen }) {
       const [qty, setQty] = useState(1);
       const toastMsg = `✓ ${p.nome} adicionado!`;
       const hasRichInfo = Boolean(p.desc || p.tags?.length);
+      const esgotado = itemEstaEsgotado(p);
+      const inCart = cartQty > 0;
+      const displayedQty = inCart ? cartQty : qty;
+      const changeQty = delta => {
+        if (inCart) {
+          onUpdateCart && onUpdateCart(p.id, delta);
+          return;
+        }
+        setQty(q => Math.max(1, q + delta));
+      };
       return (
-        <div className={`prod-card${p.esgotado ? ' esgotado' : ''}`} onClick={() => onOpen && onOpen(p)}>
+        <div className={`prod-card${esgotado ? ' esgotado' : ''}`} onClick={() => onOpen && onOpen(p)}>
           <div className="prod-img-wrap">
             <img className="prod-img" src={p.img} alt={p.nome} loading="lazy" onError={e => { e.currentTarget.onerror = null; e.currentTarget.src = FALLBACK_PRODUCT_IMAGE; }} />
+            {esgotado && <span className="prod-badge esgotado-badge">Esgotado</span>}
             <button
-              className={`prod-fab${cartQty > 0 ? ' in-cart' : ''}`}
-              onClick={e => { e.stopPropagation(); if (p.esgotado) return showToast('Produto esgotado no momento'); onAdd(p, qty); showToast(toastMsg); }}
-              title={p.esgotado ? 'Produto esgotado' : 'Adicionar ao carrinho'}
-              disabled={p.esgotado}
+              className={`prod-fab${inCart ? ' in-cart' : ''}`}
+              onClick={e => { e.stopPropagation(); if (esgotado) return showToast('Produto esgotado no momento'); if (inCart) return; onAdd(p, qty); showToast(toastMsg); }}
+              title={esgotado ? 'Produto esgotado' : (inCart ? 'Produto já está no carrinho' : 'Adicionar ao carrinho')}
+              disabled={esgotado || inCart}
             >
-              {p.esgotado ? '×' : (cartQty > 0 ? '✓' : '+')}
+              {esgotado ? '×' : (inCart ? '✓' : '+')}
             </button>
           </div>
           <div className="prod-body">
@@ -9301,14 +9411,15 @@
             </div>
             <div className="prod-nome">{p.nome}</div>
             {p.desc && <div style={{ fontSize: '.82rem', color: 'var(--ts)', lineHeight: 1.65, marginTop: 8 }}>{p.desc}</div>}
+            {esgotado && <div className="stock-note">Indisponível até reposição</div>}
             {hasRichInfo && (
               <button type="button" className="prod-info-link" onClick={e => { e.stopPropagation(); onOpen(p); }}>Ver ingredientes, glúten e fotos</button>
             )}
             <div className="prod-add" onClick={e => e.stopPropagation()}>
               <div className="qty-ctrl">
-                <button className="qty-btn" onClick={() => setQty(q => Math.max(1, q - 1))} disabled={p.esgotado}>−</button>
-                <span className="qty-val">{qty}</span>
-                <button className="qty-btn" onClick={() => setQty(q => q + 1)} disabled={p.esgotado}>+</button>
+                <button className="qty-btn" onClick={() => changeQty(-1)} disabled={esgotado}>−</button>
+                <span className="qty-val">{displayedQty}</span>
+                <button className="qty-btn" onClick={() => changeQty(1)} disabled={esgotado}>+</button>
               </div>
             </div>
           </div>
@@ -9316,7 +9427,7 @@
       );
     }
 
-    function ProductDetail({ p, cart, onAdd, onClose, onOpenProduct }) {
+    function ProductDetail({ p, cart, onAdd, onUpdateCart, onClose, onOpenProduct }) {
       const weighted = isWeightedHortifruti(p);
       const step = getQtyStep(p);
       const minQty = getMinQty(p);
@@ -9325,8 +9436,11 @@
       const [imgIdx, setImgIdx] = useState(0);
       const selectedQty = weighted && gramsInput ? gramsToQty(p, gramsInput) : qty;
       const cartQty = cart[p.id]?.qty || 0;
+      const inCart = cartQty > 0;
+      const displayedQty = inCart ? cartQty : qty;
       const imgs = [p.img, p.img2].filter(Boolean);
       const mainImg = imgs[imgIdx] || p.img;
+      const esgotado = itemEstaEsgotado(p);
 
       // Reset state when product changes
       useEffect(() => {
@@ -9335,23 +9449,39 @@
         setImgIdx(0);
       }, [p.id]);
 
-      const changeQty = delta => setQty(q => {
-        const next = weighted && delta < 0 && q <= minQty ? minQty : normalizeQty(p, q + delta);
-        if (weighted) setGramsInput(String(qtyToGrams(p, next)));
-        return next;
-      });
+      useEffect(() => {
+        if (weighted && inCart) setGramsInput(String(qtyToGrams(p, cartQty)));
+      }, [weighted, inCart, cartQty, p.id]);
+
+      const changeQty = delta => {
+        if (inCart) {
+          onUpdateCart && onUpdateCart(p.id, delta);
+          return;
+        }
+        setQty(q => {
+          const next = weighted && delta < 0 && q <= minQty ? minQty : normalizeQty(p, q + delta);
+          if (weighted) setGramsInput(String(qtyToGrams(p, next)));
+          return next;
+        });
+      };
       const changeGrams = value => {
         const grams = value.replace(/\D/g, '');
         setGramsInput(grams);
+        if (inCart) return;
         if (grams) setQty(gramsToQty(p, grams));
       };
       const fixGramsInput = () => {
         const safe = gramsInput ? gramsToQty(p, gramsInput) : minQty;
+        if (inCart) {
+          onUpdateCart && onUpdateCart(p.id, safe - cartQty);
+          setGramsInput(String(qtyToGrams(p, safe)));
+          return;
+        }
         setQty(safe);
         setGramsInput(String(qtyToGrams(p, safe)));
       };
 
-      const total = p.preco * selectedQty;
+      const total = p.preco * displayedQty;
 
       // Similar products: same category, excluding current, max 6
       const similar = ALL_PRODUCTS
@@ -9404,7 +9534,7 @@
                   {p.desc}
                 </p>
               )}
-              {p.esgotado && <span className="pd-stock-badge">Esgotado</span>}
+              {esgotado && <span className="pd-stock-badge">Esgotado</span>}
               {isAboboraKgHorti(p) && (
                 <p style={{ fontSize: '.78rem', color: 'var(--ts)', marginTop: 10, lineHeight: 1.5 }}>Pedido mínimo de <strong>500&nbsp;g</strong>. Abaixo disso não é possível fracionar abóbora no balcão.</p>
               )}
@@ -9439,7 +9569,7 @@
                 <span className="pd-total-val">{fmtBRL(total)}</span>
               </div>
               <div className="pd-qty-ctrl">
-                <button className="pd-qty-btn" onClick={() => changeQty(-step)} disabled={p.esgotado}>−</button>
+                <button className="pd-qty-btn" onClick={() => changeQty(-step)} disabled={esgotado}>−</button>
                 {weighted
                   ? (
                     <div className="pd-qty-gram-wrap">
@@ -9451,24 +9581,24 @@
                         inputMode="numeric"
                         pattern="[0-9]*"
                         aria-label={`Gramas de ${p.nome}`}
-                        disabled={p.esgotado}
+                        disabled={esgotado}
                       />
                       <span className="pd-qty-gram-unit">g</span>
                     </div>
                   )
-                  : <span className="pd-qty-val">{qty}</span>}
-                <button className="pd-qty-btn" onClick={() => changeQty(step)} disabled={p.esgotado}>+</button>
+                  : <span className="pd-qty-val">{formatQty(p, displayedQty)}</span>}
+                <button className="pd-qty-btn" onClick={() => changeQty(step)} disabled={esgotado}>+</button>
               </div>
             </div>
 
             {/* Add to cart button */}
             <button
-              className={`pd-add-btn${cartQty > 0 ? ' added' : ''}`}
-              onClick={() => { if (p.esgotado) return showToast('Produto esgotado no momento'); onAdd(p, selectedQty); showToast('✓ ' + p.nome + ' adicionado!'); }}
-              disabled={p.esgotado}
+              className={`pd-add-btn${inCart ? ' added' : ''}`}
+              onClick={() => { if (esgotado) return showToast('Produto esgotado no momento'); if (inCart) return; onAdd(p, selectedQty); showToast('✓ ' + p.nome + ' adicionado!'); }}
+              disabled={esgotado || inCart}
             >
               <svg width="18" height="18" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24"><path d="M6 2 3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z" /><line x1="3" y1="6" x2="21" y2="6" /><path d="M16 10a4 4 0 01-8 0" /></svg>
-              {p.esgotado ? 'Produto Esgotado' : (cartQty > 0 ? `✓ No carrinho (${formatQty(p, cartQty)})` : 'Adicionar ao Carrinho')}
+              {esgotado ? 'Produto Esgotado' : (inCart ? `✓ No carrinho (${formatQty(p, cartQty)})` : 'Adicionar ao Carrinho')}
             </button>
 
             {/* Veja Também (omitido para itens de almoço) */}
@@ -9481,28 +9611,31 @@
                     const spCartQty = cart[sp.id]?.qty || 0;
                     const spWeighted = isWeightedHortifruti(sp);
                     const spMinQty = getMinQty(sp);
+                    const spEsgotado = itemEstaEsgotado(sp);
+                    const spInCart = spCartQty > 0;
                     return (
                       <div key={sp.id} className="pd-veja-card" onClick={() => onOpenProduct(sp)}>
                         <div className="pd-veja-img-wrap">
                           <img src={sp.img} alt={sp.nome} loading="lazy" onError={e => { e.currentTarget.onerror = null; e.currentTarget.src = FALLBACK_PRODUCT_IMAGE; }} />
                           <button
-                            className="pd-veja-fab"
+                            className={`pd-veja-fab${spInCart ? ' in-cart' : ''}`}
                             onClick={e => {
                               e.stopPropagation();
-                              if (sp.esgotado) return showToast('Produto esgotado no momento');
+                              if (spEsgotado) return showToast('Produto esgotado no momento');
+                              if (spInCart) return;
                               onAdd(sp, spMinQty);
                               showToast('✓ ' + sp.nome + ' adicionado!');
                             }}
-                            disabled={sp.esgotado}
-                            title={sp.esgotado ? 'Produto esgotado' : 'Adicionar ao carrinho'}
-                          >{sp.esgotado ? '×' : '+'}</button>
+                            disabled={spEsgotado || spInCart}
+                            title={spEsgotado ? 'Produto esgotado' : (spInCart ? 'Produto já está no carrinho' : 'Adicionar ao carrinho')}
+                          >{spEsgotado ? '×' : (spInCart ? '✓' : '+')}</button>
                         </div>
                         <div className="pd-veja-body">
                           <div className="pd-veja-price">
                             {fmtBRL(sp.preco)}<span>/{spWeighted ? 'kg' : sp.unidade.toLowerCase()}</span>
                           </div>
                           <div className="pd-veja-name">{sp.nome}</div>
-                          {sp.esgotado && <div className="stock-note">Esgotado</div>}
+                          {spEsgotado && <div className="stock-note">Esgotado</div>}
                         </div>
                       </div>
                     );
@@ -9533,7 +9666,7 @@
         if (!normalizeText(p.nome).includes(normalizeText(busca))) return false;
         if (cat === 'hortifruti' && hortiSub !== 'todos' && hortifrutiSubcategoria(p.nome) !== hortiSub) return false;
         return true;
-      }).sort((a, b) => Number(a.esgotado) - Number(b.esgotado));
+      }).sort((a, b) => Number(itemEstaEsgotado(a)) - Number(itemEstaEsgotado(b)));
       const totalPags = Math.ceil(filtered.length / PER);
       const pageProd = filtered.slice((page - 1) * PER, page * PER);
       const ALMOCO_CATEGORIES = ['Pratos Principais', 'Saladas', 'Lanches', 'Bebidas'];
@@ -9595,7 +9728,7 @@
               <div className="result-count">Exibindo <span>{pageProd.length}</span> de <span>{filtered.length}</span> produtos</div>
               <div className="produtos-grid">
                 {pageProd.map(p => (
-                  <ProductCard key={p.id} p={p} cartQty={cart[p.id]?.qty || 0} onAdd={onAdd} onOpen={setSelectedProduct} />
+                  <ProductCard key={p.id} p={p} cartQty={cart[p.id]?.qty || 0} onAdd={onAdd} onUpdateCart={onUpdateCart} onOpen={setSelectedProduct} />
                 ))}
               </div>
               {totalPags > 1 && (
@@ -9652,7 +9785,7 @@
                     )}
                     <div className="produtos-grid">
                       {groupedPratos[category].map(p => (
-                        <PratoCard key={p.id} p={p} cartQty={cart[p.id]?.qty || 0} onAdd={onAdd} onOpen={setSelectedProduct} />
+                        <PratoCard key={p.id} p={p} cartQty={cart[p.id]?.qty || 0} onAdd={onAdd} onUpdateCart={onUpdateCart} onOpen={setSelectedProduct} />
                       ))}
                     </div>
                   </div>
@@ -9665,6 +9798,7 @@
               p={selectedProduct}
               cart={cart}
               onAdd={onAdd}
+              onUpdateCart={onUpdateCart}
               onClose={() => setSelectedProduct(null)}
               onOpenProduct={setSelectedProduct}
             />
@@ -10164,14 +10298,18 @@
       }, [navMobOpen]);
 
       const addToCart = (item, qty = 1, opts) => {
-        if (item?.esgotado) {
+        if (itemEstaEsgotado(item)) {
           showToast('Produto esgotado no momento');
           return;
         }
         setCart(c => {
           const prev = c[item.id];
-          const nextQty = normalizeQty(item, (prev?.qty || 0) + normalizeQty(item, qty));
-          const nextObs = opts && opts.obs !== undefined ? String(opts.obs) : (prev?.obs || '');
+          if (prev) {
+            const nextObs = opts && opts.obs !== undefined ? String(opts.obs) : (prev.obs || '');
+            return { ...c, [item.id]: { ...prev, obs: nextObs } };
+          }
+          const nextQty = normalizeQty(item, qty);
+          const nextObs = opts && opts.obs !== undefined ? String(opts.obs) : '';
           return { ...c, [item.id]: { item, qty: nextQty, obs: nextObs } };
         });
       };
