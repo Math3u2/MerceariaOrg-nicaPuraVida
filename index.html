@@ -2900,7 +2900,7 @@
     const WA = '554732029800';
 
     // ✏️ Chave PIX (CPF, CNPJ, telefone ou e-mail)
-    const PIX_KEY = '4732029800';
+    const PIX_KEY = '65263904000155';
 
     // ✏️ Tabela de frete para clientes
     const FRETES = [
@@ -9088,10 +9088,10 @@
 
 
     const CATEGORIAS_ESPECIAIS = [
-      ['mercearia', ['alho organico triturado', 'alho orgânico triturado', 'alho triturado']],
+      ['mercearia', ['alho organico triturado', 'alho orgânico triturado', 'alho triturado', 'filtro para coar']],
+      ['bebidas', ['kombucha', 'agua mineral', 'água mineral', 'agua de coco', 'água de coco', 'caldo de cana', 'limonada', 'isotonico', 'isotônico', 'bebida vegetal', 'leite vegetal', 'suco', 'sucos', 'refrigerante']],
       ['hortifruti', ['vagem macarrao', 'vagem macarrão']],
       ['hortifruti', ['maca fuji', 'maçã fuji', 'maca gala', 'maçã gala', 'maca golden', 'maçã golden', 'maca importada', 'maçã importada', 'maca nacional', 'maçã nacional', 'maca verde', 'maçã verde']],
-      ['bebidas', ['kombucha', 'agua mineral', 'água mineral', 'agua de coco', 'água de coco', 'caldo de cana', 'limonada', 'isotonico', 'isotônico']],
       ['congelados', [
         'acai original', 'açaí original', 'acem em cubos', 'acém em cubos', 'alcatra estrogonofe',
         'coracao de frango', 'coração de frango', 'coxa de frango', 'coxinha da asa', 'coxao mole',
@@ -9123,19 +9123,19 @@
         'pera ', 'pêssego', 'pessego', 'physalis', 'pimentao', 'pimentão', 'pinhao',
         'pinhão', 'pitaya', 'poejo', 'quiabo', 'rabanete', 'radite', 'repolho',
         'rúcula', 'rucula', 'salsa ', 'salsao', 'salsão', 'salsinha', 'salvia',
-        'sálvia', 'tangerina', 'tomate', 'uva ', 'vagem',
+        'sálvia', 'tangerina', 'tomate', 'uva ', 'vagem', 'manjericão', 'manjericao',
       ]],
       ['congelados', [
         'congelado', 'congelada', 'sorvete', 'polpa', 'pao de queijo', 'pão de queijo',
         'lasanha', 'pizza congelada', 'hamburguer congelado', 'hambúrguer congelado',
         'nuggets', 'empanado', 'picole', 'picolé', 'açaí', 'acai', 'carne ', 'bovina',
         'frango ', 'peito de frango', 'asa ', 'tilápia', 'tilapia', 'hambúrguer', 'hamburguer',
-        'pizza', 'pastel', 'risoles',
+        'pizza', 'pastel', 'risoles', 'mix de frutas vermelhas',
       ]],
       ['refrigerados', [
         'iogurte', 'queijo', 'manteiga', 'requeijao', 'requeijão', 'leite ', 'bebida lactea',
         'bebida láctea', 'kefir', 'coalhada', 'ricota', 'cream cheese', 'tofu', 'tempeh',
-        'nata', 'creme de leite', 'doce de leite', 'fresco', 'fresca', 'ovos ',
+        'nata', 'creme de leite', 'doce de leite', 'fresco', 'fresca',
       ]],
       ['bebidas', [
         'suco', 'néctar', 'nectar', 'cha ', 'chá ', 'cafe ', 'café ', 'vinho', 'cerveja',
@@ -9176,14 +9176,25 @@
         'fermento', 'flocos de milho', 'fubá', 'fuba', 'gengibre cristalizado', 'gengibre em pó',
         'gengibre em po', 'gengibre moído', 'gengibre moido', 'gergelim', 'ginseng', 'goma xantana',
         'golden drink', 'golden milk', 'gritz', 'guaco', 'hibiscus', 'ketchup', 'lentilha ',
-        'louro', 'maca bite', 'macadâmia', 'macadamia', 'maionese', 'manjericão', 'manjericao',
+        'louro', 'maca bite', 'macadâmia', 'macadamia', 'maionese',
         'marcela', 'melado', 'milho de pipoca', 'milho mostarda', 'miso', 'missô', 'mix crispy',
-        'mix de frutas secas', 'mix de frutas vermelhas', 'mostarda', 'noz moscada', 'orégano',
+        'mostarda', 'noz moscada', 'orégano',
         'oregano', 'orelha de gato', 'pão ', 'pao ', 'páprica', 'paprica', 'pepita', 'pepitas',
         'pimenta', 'pipoca', 'polvilho', 'pumpkin pie', 'rendang', 'salgadinho', 'seleta de legumes',
         'shoyu', 'snack', 'tabletitos', 'tahine', 'talharim', 'tâmara', 'tamara', 'tâmaras',
-        'tamaras', 'tomilho', 'torraditas', 'waffle',
+        'tamaras', 'tomilho', 'torraditas', 'waffle', 'chips', 'pãozinho', 'paozinho', 'mix de frutas secas',
+        'ovos',
       ]],
+    ];
+
+    const PRIORIDADE_CATEGORIAS = [
+      'higiene',
+      'suplementos',
+      'congelados',
+      'mercearia',
+      'bebidas',
+      'refrigerados',
+      'hortifruti',
     ];
 
     function categoriaEspecialProduto(texto) {
@@ -9207,50 +9218,6 @@
 
     function unidadeDoProduto(unidade) {
       return normalizarProdutoTexto(unidade) === 'nan' ? 'UNID' : unidade;
-    }
-
-    const HORTI_SUBCATS = [
-      { id: 'todos', label: 'Todos' },
-      { id: 'frutas', label: 'Frutas' },
-      { id: 'verduras', label: 'Verduras & folhas' },
-      { id: 'legumes', label: 'Legumes & raízes' },
-      { id: 'ervas', label: 'Ervas & temperos' },
-    ];
-
-    const HORTI_ERVAS_KW = [
-      'cebolinha', 'coentro', 'hortela', 'hortelã', 'lavanda', 'manjerona', 'melissa',
-      'poejo', 'salvia', 'sálvia', 'salsa ', 'salsinha',
-    ];
-
-    const HORTI_VERDURAS_KW = [
-      'alface', 'acelga', 'agriao', 'agrião', 'rucula', 'rúcula', 'espinafre', 'mostarda crespa', 'repolho',
-      'chicoria', 'chicória', 'almeirao', 'almeirão', 'escarola', 'azedinha', 'broto', 'brotos',
-      'salsão', 'salsao', 'salsa ', 'manjerona', 'micro verdes', 'poejo', 'salvia', 'sálvia', 'dente de leão',
-      'dente de leao', 'lavanda', 'ora pro nobis', 'jambu', 'jambú', 'endivia', 'endívia',
-    ];
-    const HORTI_LEGUMES_KW = [
-      'tomate', 'cenoura', 'batata', 'cebola', 'chuchu', 'berinjela', 'abobrinha', 'abóbora', 'abobora',
-      'mandioca', 'inhame', 'beterraba', 'nabo', 'rabanete', 'pepino', 'quiabo', 'vagem', 'pimentao', 'pimentão',
-      'milho verde', 'brocolis', 'brócolis', 'cogumelo', 'palmito', 'aipim', 'cará', 'aspargo', 'alho por',
-      'radite', 'couve-flor', 'couve flor', 'nabo ', 'abobrinha', 'alho organico', 'alho orgânico',
-      'gengibre', 'mandioquinha',
-    ];
-    const HORTI_FRUTAS_KW = [
-      'abacate', 'abacaxi', 'banana', 'caju', 'caqui', 'carambola', 'damasco', 'figo', 'framboesa', 'framboesa',
-      'goiaba', 'kiwi', 'laranja', 'laranjinha', 'lichia', 'limão', 'limao', 'lima ', 'manga', 'maracu',
-      'melancia', 'melão', 'melao', 'mirtilo', 'morango', 'nectarina', 'pera ', 'physalis', 'pêssego', 'pessego',
-      'pitaya', 'tangerina', 'uva ', 'ameixa', 'amora', 'atemoia', 'avocado', 'pinhao', 'pinhão', 'caju',
-      'romã', 'roma ', 'tamarindo', 'seriguela', 'caja', 'umbu', 'jenipapo', 'buriti',
-    ];
-
-    function hortifrutiSubcategoria(nome) {
-      const t = normalizarProdutoTexto(nome);
-      if (contemAlgumaPalavra(t, HORTI_ERVAS_KW)) return 'ervas';
-      if (contemAlgumaPalavra(t, HORTI_VERDURAS_KW)) return 'verduras';
-      if (t.includes('couve') && !t.includes('flor')) return 'verduras';
-      if (contemAlgumaPalavra(t, HORTI_LEGUMES_KW)) return 'legumes';
-      if (contemAlgumaPalavra(t, HORTI_FRUTAS_KW)) return 'frutas';
-      return 'legumes';
     }
 
     const valorMarcaEsgotado = valor => {
@@ -9842,20 +9809,14 @@
     function ShopSection({ cart, onAdd, onUpdateCart }) {
       const [tab, setTab] = useState('loja'); // 'loja' | 'almoco'
       const [cat, setCat] = useState('todos');
-      const [hortiSub, setHortiSub] = useState('todos');
       const [busca, setBusca] = useState('');
       const [page, setPage] = useState(1);
       const [selectedProduct, setSelectedProduct] = useState(null);
       const PER = 24;
 
-      useEffect(() => {
-        if (cat !== 'hortifruti') setHortiSub('todos');
-      }, [cat]);
-
       const filtered = ALL_PRODUCTS.filter(p => {
         if (!(cat === 'todos' || p.cat === cat)) return false;
         if (!normalizeText(p.nome).includes(normalizeText(busca))) return false;
-        if (cat === 'hortifruti' && hortiSub !== 'todos' && hortifrutiSubcategoria(p.nome) !== hortiSub) return false;
         return true;
       }).sort((a, b) => Number(itemEstaEsgotado(a)) - Number(itemEstaEsgotado(b)));
       const totalPags = Math.ceil(filtered.length / PER);
@@ -9906,15 +9867,6 @@
                     </button>
                   ))}
                 </div>
-                {cat === 'hortifruti' && (
-                  <div className="horti-sub-tabs cat-tabs" style={{ width: '100%' }}>
-                    {HORTI_SUBCATS.map(h => (
-                      <button key={h.id} type="button" className={`cat-tab${hortiSub === h.id ? ' active' : ''}`} onClick={() => { setHortiSub(h.id); setPage(1); }}>
-                        {h.label}
-                      </button>
-                    ))}
-                  </div>
-                )}
               </div>
               <div className="result-count">Exibindo <span>{pageProd.length}</span> de <span>{filtered.length}</span> produtos</div>
               <div className="produtos-grid">
@@ -10160,44 +10112,44 @@
         }
         const totalFinal = subtotal + (freteFinal ? freteFinal.valor : 0);
         const pagLabel = { pix: 'PIX', cartao: 'Cartão na Entrega', dinheiro: 'Dinheiro na Entrega', voucher: 'Voucher' }[form.pagamento];
-        let msg = `🌿 *PEDIDO — Vida Pura Mercearia*\n`;
+        let msg = `*PEDIDO — Vida Pura Mercearia*\n`;
         msg += `━━━━━━━━━━━━━━━━━━━━━\n\n`;
-        msg += `💬 *Finalize pelo WhatsApp:* confirmamos estoque, horário exato e *forma de pagamento* (PIX, cartão ou dinheiro) diretamente na conversa com a loja.\n\n`;
-        msg += `👤 *Cliente:* ${form.nome}\n`;
-        msg += `📱 *Telefone:* ${form.telefone}\n`;
-        msg += `🚚 *Tipo:* ${isRetirada ? 'Retirada na loja' : 'Entrega'}\n`;
+        msg += `*Finalize pelo WhatsApp:* confirmamos estoque, horário exato e *forma de pagamento* (PIX, cartão ou dinheiro) diretamente na conversa com a loja.\n\n`;
+        msg += `*Cliente:* ${form.nome}\n`;
+        msg += `*Telefone:* ${form.telefone}\n`;
+        msg += `*Tipo:* ${isRetirada ? 'Retirada na loja' : 'Entrega'}\n`;
         if (isRetirada) {
-          msg += `⏰ *Horário da retirada:* ${form.retiradaHora}\n`;
-          msg += `🏙️ *Cidade:* ${form.cidade || 'Não informada'}\n`;
-          msg += `🏬 *Retirada em:* ${INFO_LOJA.endereco}\n`;
+          msg += `*Horário da retirada:* ${form.retiradaHora}\n`;
+          msg += `*Cidade:* ${form.cidade || 'Não informada'}\n`;
+          msg += `*Retirada em:* ${INFO_LOJA.endereco}\n`;
         } else {
-          msg += `📮 *CEP:* ${form.cep}\n`;
-          msg += `📍 *Endereço:* ${form.rua}, ${form.numero} - ${form.bairro}${form.cidade ? ', ' + form.cidade : ''}${form.uf ? '/' + form.uf : ''}\n`;
-          if (form.complemento) msg += `🏠 *Complemento:* ${form.complemento}\n`;
-          if (form.entregaHora) msg += `⏰ *Preferência de horário da entrega:* ${form.entregaHora}\n`;
+          msg += `*CEP:* ${form.cep}\n`;
+          msg += `*Endereço:* ${form.rua}, ${form.numero} - ${form.bairro}${form.cidade ? ', ' + form.cidade : ''}${form.uf ? '/' + form.uf : ''}\n`;
+          if (form.complemento) msg += `*Complemento:* ${form.complemento}\n`;
+          if (form.entregaHora) msg += `*Preferência de horário da entrega:* ${form.entregaHora}\n`;
           if (form.pagamento === 'cartao') {
-            msg += `💳 *Máquina de cartão na entrega:* ${form.maquinaCartao === 'sim' ? 'Sim, preciso' : 'Não preciso / outro meio'}\n`;
+            msg += `*Máquina de cartão na entrega:* ${form.maquinaCartao === 'sim' ? 'Sim, preciso' : 'Não preciso / outro meio'}\n`;
           }
         }
-        msg += `💳 *Pagamento (preferência):* ${pagLabel}\n`;
-        if (form.pagamento === 'dinheiro') msg += `💵 *Troco para:* ${formatTroco(form.troco)}\n`;
-        if (form.obs) msg += `📝 *Obs. gerais:* ${form.obs}\n`;
+        msg += `*Pagamento (preferência):* ${pagLabel}\n`;
+        if (form.pagamento === 'dinheiro') msg += `*Troco para:* ${formatTroco(form.troco)}\n`;
+        if (form.obs) msg += `*Obs. gerais:* ${form.obs}\n`;
         msg += `\n━━━━━━━━━━━━━━━━━━━━━\n`;
-        msg += `📦 *ITENS DO PEDIDO*\n\n`;
+        msg += `*ITENS DO PEDIDO*\n\n`;
         const sorted = [...items].sort((a, b) => a.item.nome.localeCompare(b.item.nome));
         sorted.forEach(({ item, qty, obs }, idx) => {
           const sub = item.preco * qty;
           msg += `${idx + 1}. *${item.nome}* (${item.unidade})\n`;
           msg += `   ${formatQty(item, qty)} × ${formatUnitPrice(item)} = *${fmtBRL(sub)}*\n`;
-          if (obs && String(obs).trim()) msg += `   📝 ${String(obs).trim()}\n`;
+          if (obs && String(obs).trim()) msg += `   Obs.: ${String(obs).trim()}\n`;
           msg += `\n`;
         });
         msg += `━━━━━━━━━━━━━━━━━━━━━\n`;
-        msg += `🧾 *Subtotal:* ${fmtBRL(subtotal)}\n`;
-        msg += isRetirada ? `🏬 *Retirada:* ${fmtBRL(0)}\n` : `🚚 *Frete (${freteFinal.bairro}):* ${fmtBRL(freteFinal.valor)}\n`;
-        msg += `💰 *TOTAL: ${fmtBRL(totalFinal)}*\n`;
-        if (form.pagamento === 'pix') msg += `\n🔑 Chave PIX: *${PIX_KEY}*\n`;
-        msg += `\nAguardo confirmação do pedido. Obrigado! 😊`;
+        msg += `*Subtotal:* ${fmtBRL(subtotal)}\n`;
+        msg += isRetirada ? `*Retirada:* ${fmtBRL(0)}\n` : `*Frete (${freteFinal.bairro}):* ${fmtBRL(freteFinal.valor)}\n`;
+        msg += `*TOTAL: ${fmtBRL(totalFinal)}*\n`;
+        if (form.pagamento === 'pix') msg += `\nChave PIX: *${PIX_KEY}*\n`;
+        msg += `\nAguardo confirmação do pedido. Obrigado!`;
         window.open(`https://wa.me/${WA}?text=${encodeURIComponent(msg)}`, '_blank');
       };
 
