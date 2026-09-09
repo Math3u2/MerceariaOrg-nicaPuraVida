@@ -328,7 +328,7 @@
     .stats {
       background: var(--vm);
       display: grid;
-      grid-template-columns: repeat(3, 1fr);
+      grid-template-columns: repeat(4, 1fr);
       gap: 2px
     }
 
@@ -1881,7 +1881,7 @@
 
     .pagamento-opts {
       display: grid;
-      grid-template-columns: repeat(4, 1fr);
+      grid-template-columns: repeat(3, 1fr);
       gap: 8px
     }
 
@@ -1914,32 +1914,6 @@
       height: 22px
     }
 
-    .pix-info {
-      background: var(--vd);
-      color: #fff;
-      padding: 14px;
-      font-size: .82rem;
-      line-height: 1.6;
-      margin-top: 4px
-    }
-
-    .pix-key-row {
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      margin-top: 4px
-    }
-
-    .pix-key {
-      flex: 1;
-      min-width: 0;
-      font-family: 'Playfair Display', serif;
-      font-size: 1rem;
-      color: var(--do);
-      word-break: break-all
-    }
-
-    .btn-copy,
     .btn-frete,
     .btn-back {
       border: 1px solid rgba(255, 255, 255, .28);
@@ -1958,12 +1932,6 @@
       gap: 6px;
       transition: all .2s;
       white-space: nowrap
-    }
-
-    .btn-copy:hover {
-      background: var(--do);
-      border-color: var(--do);
-      color: var(--vd)
     }
 
     .btn-frete {
@@ -2774,15 +2742,6 @@
         grid-template-columns: repeat(2, 1fr)
       }
 
-      .pix-key-row {
-        align-items: stretch;
-        flex-direction: column
-      }
-
-      .btn-copy {
-        width: 100%
-      }
-
       .frete-info {
         align-items: flex-start;
         flex-direction: column
@@ -2898,9 +2857,6 @@
     // ✏️ Número do WhatsApp que recebe os pedidos
     //    Formato: 55 + DDD + número (sem espaços ou traços)
     const WA = '554732029800';
-
-    // ✏️ Chave PIX (CPF, CNPJ, telefone ou e-mail)
-    const PIX_KEY = '65263904000155';
 
     // ✏️ Tabela de frete para clientes
     const FRETES = [
@@ -5217,7 +5173,7 @@
          img: "https://img.localo.site/?dpr=1&fit=cover&format=image%2Fjpeg&height=auto&quality=85&url=https%3A%2F%2Flh3.googleusercontent.com%2F45aH13xSIzq7126GhK5QE1keft4GcvZAfA-p8u5KRWZEeBfkS97tBiJov4VZOX5hDEfz9zgxErzlIsHzlg%3Ds0&width=1080&sig=iViT1mtY456lh4u86GL4YBNwIH1S8O7XHhAsLpjVXHU",
       },
       {
-         produto: ["Aipim chips cebola e salsa, 40g - Morino", "KG", 7],
+         produto: ["Aipim chips cebola e salsa, 40g - Morino", "BANDEJ", 7],
          img: "https://www.jardimdaservas.com.br/178-large_default/aipim-chips-salsa-e-cebola.jpg.webp",
       },
       {
@@ -5225,11 +5181,11 @@
          img: "https://hortifrutibr.vtexassets.com/arquivos/ids/171518/Strogonoff-de-Alcatra.jpg?v=639093650880400000",
       },
       {
-         produto: ["Ameixa seca sem caroço, bandeja de 100g - Morino", "KG", 9.7],
+         produto: ["Ameixa seca sem caroço, bandeja de 100g - Morino", "BANDEJ", 9.7],
          img: "https://salutarnatural.com.br/wp-content/uploads/2019/11/ameixa-seca-sem-caroco-1-kg-qualidade-premium-green-house-D_NQ_NP_900959-MLB27391539728_052018-F-980x641.jpg",
       },
       {
-         produto: ["Amendoim torrado com sal, 150g - Morino", "KG", 7],
+         produto: ["Amendoim torrado com sal, 150g - Morino", "BANDEJ", 7],
          img: "https://salutarnatural.com.br/wp-content/uploads/2019/11/amendoim_torrado_com_sal_51_1_20171211170648-980x980.jpg",
       },
       {
@@ -5241,11 +5197,11 @@
          img: "https://images.tcdn.com.br/img/img_prod/1027475/bacon_artesanal_cancian_200g_361_1_14342430ac2b194519f22529a3be5fd3.jpg",
       },
       {
-         produto: ["Banana chips salgada, rodelas 100g - Morino", "KG", 15.5],
+         produto: ["Banana chips salgada, rodelas 100g - Morino", "BANDEJ", 15.5],
          img: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSsfmPS_2k5GcSehotBXyZ15rjEqFUfIBO9C1YVMtwHvQ&s",
       },
       {
-         produto: ["Batata doce chips 40g - Morino", "KG", 7],
+         produto: ["Batata doce chips 40g - Morino", "BANDEJ", 7],
          img: "https://cdn.awsli.com.br/600x700/2306/2306871/produto/165272778/imagem-loja-integrada--1--683hl7hvt9.jpg",
       },
       {
@@ -5253,7 +5209,7 @@
          img: "https://img.localo.site/?dpr=1&fit=cover&format=image%2Fjpeg&height=auto&quality=85&url=https%3A%2F%2Flh3.googleusercontent.com%2Fy1xhSSdGsplkLHhp-1Ogmuy9zU5dxcVcWrTNNPOZTjQ9TgfusNCoH5a6P6u00nkpps0YAQ1sxkM7hHCAPA%3Ds0&width=1080&sig=lSlBiHc5X_y311cOkX5LTzppuLFaUnkjyU3HDHkdmzk",
       },
       {
-         produto: ["Castanha de caju 100g - Morino", "KG", 17],
+         produto: ["Castanha de caju 100g - Morino", "BANDEJ", 17],
          img: "https://acdn-us.mitiendanube.com/stores/006/280/521/products/castanha-de-caju-natural-06833a9f8f1ff996bd17502765014175-1024-1024.webp",
       },
       {
@@ -5261,11 +5217,11 @@
          img: "https://http2.mlstatic.com/D_Q_NP_937860-MLA99878898473_112025-O.webp",
       },
       {
-         produto: ["Castanha do Pará inteira 100g - Morino", "KG", 23.7],
+         produto: ["Castanha do Pará inteira 100g - Morino", "BANDEJ", 17],
          img: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRsXikXte9nzo4RRA2A-iOuSWApxUKi0fQ13nVNaS88xv6eSWDcb1l00v4&s=10",
       },
       {
-         produto: ["Coco chips sem borda, 50g - Morino", "KG", 8.7],
+         produto: ["Coco chips sem borda, 50g - Morino", "BANDEJ", 8.7],
          img: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTwFDH8qMgNLrWvd4zCpyjAAUcBVlRTt77cIeKumIB9Whcn7i00pHRKAA85&s=10",
       },
       {
@@ -5273,7 +5229,7 @@
          img: "https://cdn.shopify.com/s/files/1/0587/8487/4575/files/6cf0d535-c4b9-4ec9-9cfc-fcee849b929c.jpg?v=1757001839",
       },
       {
-         produto: ["Cranberry partido 100g - Morino", "KG", 10.7],
+         produto: ["Cranberry partido 100g - Morino", "BANDEJ", 10.7],
          img: "https://images.tcdn.com.br/img/img_prod/1122519/cranberry_pedacos_100gr_2756_1_d0b08a11746b529fa665e32cb6ed8ee5.jpg",
       },
       {
@@ -5329,7 +5285,7 @@
          img: "https://newluxbrand.com/recetas/wp-content/uploads/2022/11/Octubre22_V55_granolacasera_01-1024x1024-optimized.jpg",
       },
       {
-         produto: ["Grão de bico mostarda e mel 100g - Morino", "KG", 12.7],
+         produto: ["Grão de bico mostarda e mel 100g - Morino", "BANDEJ", 12.7],
          img: "https://cdn.awsli.com.br/600x450/2216/2216236/produto/150434683cc676034a3.jpg",
       },
       {
@@ -5385,7 +5341,7 @@
          img: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQMUe0GUXl6iUQQntCBDu_GmmbxGMLs8jUtZBWg343mGsNd1T7CYqu-h-8&s=10",
       },
       {
-         produto: ["Milho mostarda e mel, 80g - Morino", "KG", 11.5],
+         produto: ["Milho mostarda e mel, 80g - Morino", "BANDEJ", 11.5],
          img: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQqwHfGlwmF5hFMS6CE2OmOppPsM_54A3yCLJiuSuxp2BLAm78269s7RmY2&s=10",
       },
       {
@@ -5405,7 +5361,7 @@
          img: "https://www.korinalimentos.com.br/wp-content/uploads/2023/11/Frango-Inteiro-Congelado-BOA-PEDIDA-2025.png",
       },
       {
-         produto: ["Pepita de girassol 150g - Morino", "KG", 7.9],
+         produto: ["Pepita de girassol 150g - Morino", "BANDEJ", 7.9],
          img: "https://images.tcdn.com.br/img/img_prod/637387/semente_de_girassol_pepita_torrada_sem_sal_45365_1_d39c818dd5706d86bdcad3eddf10e7a9_20260223161854.jpg",
       },
       {
@@ -5437,7 +5393,7 @@
          img: "https://frequencia.com.br/bd_geral/uploads/1729105899010-998078025.webp",
       },
       {
-         produto: ["Semente de abóbora sem casca crua 150g - Morino", "KG", 19.7],
+         produto: ["Semente de abóbora sem casca crua 150g - Morino", "BANDEJ", 19.7],
          img: "https://cdn.awsli.com.br/600x450/2672/2672806/produto/249017388/semente-de-ab-bora-sem-casca-sin7lvsjk6.jpg",
       },
       {
@@ -9084,12 +9040,38 @@
       .replace(/[\u0300-\u036f]/g, '')
       .toLowerCase();
 
-    const contemAlgumaPalavra = (texto, palavras) => palavras.some(palavra => texto.includes(normalizarProdutoTexto(palavra)));
+    const contemAlgumaPalavra = (texto, palavras) => {
+      const textoPorPalavras = ` ${normalizarProdutoTexto(texto).replace(/[^a-z0-9]+/g, ' ').trim()} `;
+      return palavras.some(palavra => {
+        const palavraNormalizada = normalizarProdutoTexto(palavra).replace(/[^a-z0-9]+/g, ' ').trim();
+        return palavraNormalizada && textoPorPalavras.includes(` ${palavraNormalizada} `);
+      });
+    };
 
 
     const CATEGORIAS_ESPECIAIS = [
+      // Itens que também citam frutas/verduras devem manter sua seção específica.
+      ['mercearia', ['morino']],
+      ['mercearia', [
+        'bolo', 'palitos', 'papinha', 'muffin', 'sweet chilli', 'sweet chili', 'goiabada',
+        'passata', 'tomate pelado', 'fruta seca', 'ameixa seca', 'passa de', 'passas de',
+        'fécula', 'fecula', 'antisséptico', 'antisseptico', 'máscara capilar', 'mascara capilar',
+        'funghi secchi', 'secchi', 'em pó', 'em po', 'fatiado', 'biomassa', 'palitinhos', 'uva passa',
+      ]],
+      ['mercearia', ['Álcool etílico hidratado 46º INPM 1L - Supervale']],
+      ['hortifruti', ['batata doce polpa', 'Laranja suco orgânica' ,"Caqui Café orgânico"]],
+      ['congelados', ['salmão', 'salmao', 'linguiça', 'linguica']],
+      ['congelados', ['congelado', 'congelada']],
+      ['mercearia', ['ovos', 'Not creme de leite vegano 200g - Notco', 'Not mayo 350g - Notco', 'Doce de leite orgânico, 300g - Do pé ao pote', 'Ghee 200g - Bendita Roça', 'Ghee 500g - Bendita Roça']],
+      ['mercearia', ['óleo de coco', 'oleo de coco', 'óleo de semente de uva', 'oleo de semente de uva']],
+      ['mercearia', ['mel silvestre orgânico', 'mel silvestre organico', 'mel orgânico', 'mel organico']],
+      ['mercearia', ['geleia', 'geléia']],
+      ['mercearia', ['molho de tomate orgânico', 'molho de tomate organico']],
+      ['mercearia', ['shoyu orgânico', 'shoyu organico']],
+      ['higiene', ['sabonete']],
       ['mercearia', ['alho organico triturado', 'alho orgânico triturado', 'alho triturado', 'filtro para coar']],
-      ['bebidas', ['kombucha', 'agua mineral', 'água mineral', 'agua de coco', 'água de coco', 'caldo de cana', 'limonada', 'isotonico', 'isotônico', 'bebida vegetal', 'leite vegetal', 'suco', 'sucos', 'refrigerante']],
+      ['bebidas', ['kombucha', 'agua mineral', 'água mineral', 'agua de coco', 'água de coco', 'caldo de cana', 'limonada', 'isotonico', 'isotônico',
+       'bebida vegetal', 'leite vegetal', 'suco', 'sucos', 'refrigerante', 'Leite integral orgânico 1L - Timbaúba', 'Leite original 1L - Naveia',  'Leite barista 1L - Naveia']],
       ['hortifruti', ['vagem macarrao', 'vagem macarrão']],
       ['hortifruti', ['maca fuji', 'maçã fuji', 'maca gala', 'maçã gala', 'maca golden', 'maçã golden', 'maca importada', 'maçã importada', 'maca nacional', 'maçã nacional', 'maca verde', 'maçã verde']],
       ['congelados', [
@@ -9101,8 +9083,9 @@
         'patinho em cubos', 'posta vermelha', 'risoles', 'sobrecoxa', 'sorbet', 'tilapia', 'tilápia',
         'tiras de peito',
       ]],
-      ['refrigerados', ['ovos caipiras', 'ovos organicos', 'ovos orgânicos', 'ghee ', 'not mayo', 'requeveg']],
-      ['suplementos', ['100% whey', 'whey protein', 'coenzima', 'isofort', 'maca peruana', 'prata coloidal', 'propolis', 'própolis', 'polen', 'pólen', 'propomax']],
+      ['refrigerados', ['ghee ', 'not mayo', 'requeveg']],
+      ['bebidas', ['suplemento alimentar jungle', 'suplemento de vitamina c', 'suplemento sabor']],
+      ['higiene', ['prata coloidal', 'spray composto de mel e própolis', 'spray composto de mel e propolis']],
     ];
 
     const PALAVRAS_CATEGORIAS = [
@@ -9130,9 +9113,7 @@
         'lasanha', 'pizza congelada', 'hamburguer congelado', 'hambúrguer congelado',
         'nuggets', 'empanado', 'picole', 'picolé', 'açaí', 'acai', 'carne ', 'bovina',
         'frango ', 'peito de frango', 'asa ', 'tilápia', 'tilapia', 'hambúrguer', 'hamburguer',
-        'pizza', 'pastel', 'risoles', 'mix de frutas vermelhas', 'mirtilo congelado', 'morango congelado', 
-        'morango e mirtilo congelado', 'frumar', 'linguiça suína', 'amora congelada', 'amora e mirtilo congelado', 
-        'amora orgânica congelada', 
+        'pizza', 'pastel', 'risoles', 'mix de frutas vermelhas',
       ]],
       ['refrigerados', [
         'iogurte', 'queijo', 'manteiga', 'requeijao', 'requeijão', 'leite ', 'bebida lactea',
@@ -9144,22 +9125,16 @@
         'energetico', 'energético', 'refrigerante', 'agua ', 'água ', 'bebida vegetal',
         'leite vegetal', 'kombucha', 'smoothie',
       ]],
-      ['suplementos', [
-        'whey', 'proteina', 'proteína', 'colageno', 'colágeno', 'creatina', 'glutamina',
-        'albumina', 'bcaa', 'omega', 'ômega', 'vitamina', 'multivitaminico', 'multivitamínico',
-        'magnesio', 'magnésio', 'zinco', 'probiotico', 'probiótico', 'suplemento',
-        'guaraná moído', 'guarana moido',
-      ]],
       ['higiene', [
         'shampoo', 'condicionador', 'sabonete', 'desodorante', 'creme dental', 'pasta dental',
         'fio dental', 'absorvente', 'fralda', 'lenço', 'lenco', 'higiene', 'detergente',
         'lava roupas', 'amaciante', 'limpador', 'sabao ', 'sabão ', 'esponja', 'alcool ',
-        'álcool ', 'multiuso', 'desinfetante', 'aloe vera', 'argila', 'balm labial',
+        'álcool ', 'multiuso', 'desinfetante', 'aloe vera', 'argila', 'balm labial', 'hidratante',
         'concentrado força', 'creme base', 'creme facial', 'creme modelador', 'creme para mãos',
         'creme para maos', 'desodorate', 'desodorizante', 'difusor', 'enxaguante bucal',
         'escova de dentes', 'gel dental', 'home spray', 'incenso', 'lava louças', 'lava loucas',
         'leave in', 'puro gel', 'raspador de língua', 'raspador de lingua', 'sangue de dragão',
-        'sangue de dragao', 'serum facial', 'sérum facial', 'spray capilar', 'sabonete vegetal',
+        'sangue de dragao', 'serum facial', 'sérum facial', 'spray capilar',
       ]],
       ['mercearia', [
         'arroz', 'feijao', 'feijão', 'grao', 'grão', 'graos', 'grãos', 'farinha', 'macarrao',
@@ -9185,13 +9160,12 @@
         'pimenta', 'pipoca', 'polvilho', 'pumpkin pie', 'rendang', 'salgadinho', 'seleta de legumes',
         'shoyu', 'snack', 'tabletitos', 'tahine', 'talharim', 'tâmara', 'tamara', 'tâmaras',
         'tamaras', 'tomilho', 'torraditas', 'waffle', 'chips', 'pãozinho', 'paozinho', 'mix de frutas secas',
-        'ovos', 'ovo', 'morino', 'tomate pelado', 'uniagro', 'dacolônia',
+        'ovos',
       ]],
     ];
 
     const PRIORIDADE_CATEGORIAS = [
       'higiene',
-      'suplementos',
       'congelados',
       'mercearia',
       'bebidas',
@@ -9210,12 +9184,27 @@
       return '';
     }
 
+    const SUPLEMENTOS_PERMITIDOS = new Set([
+      '100% whey concentrado, shake de chocolate, 900g - integralmedica',
+      'coenzima q10, 60 capsulas, 250mg - ada',
+      'creatina 300g - probiotica',
+      'creatina hardcore reload 300g - integralmedica',
+      'maca peruana black 100g - color andina',
+      'isofort plant, baunilnha 450g - vitafor',
+      'omega 3, com 90 capsulas de 1400mg cada - macrophytus',
+      'vitamina b12, 60 capsulas - macrophytus',
+      'vitamina complexo b, 60 capsulas - macrophytus',
+    ]);
+
     function categoriaDoProduto(nome, unidade) {
+      if (SUPLEMENTOS_PERMITIDOS.has(normalizarProdutoTexto(nome))) return 'suplementos';
       const texto = normalizarProdutoTexto(nome) + ' ' + normalizarProdutoTexto(unidade);
       const especial = categoriaEspecialProduto(texto);
       if (especial) return especial;
-      const encontrada = PALAVRAS_CATEGORIAS.find(([, palavras]) => contemAlgumaPalavra(texto, palavras));
-      return encontrada ? encontrada[0] : 'mercearia';
+      const categoriasEncontradas = PALAVRAS_CATEGORIAS
+        .filter(([, palavras]) => contemAlgumaPalavra(texto, palavras))
+        .map(([categoria]) => categoria);
+      return PRIORIDADE_CATEGORIAS.find(categoria => categoriasEncontradas.includes(categoria)) || 'mercearia';
     }
 
     function unidadeDoProduto(unidade) {
@@ -9333,26 +9322,6 @@
       }
       return null;
     };
-    const copyText = async text => {
-      try {
-        if (navigator.clipboard) {
-          await navigator.clipboard.writeText(text);
-        } else {
-          throw new Error('clipboard indisponivel');
-        }
-      } catch {
-        const ta = document.createElement('textarea');
-        ta.value = text;
-        ta.setAttribute('readonly', '');
-        ta.style.position = 'fixed';
-        ta.style.opacity = '0';
-        document.body.appendChild(ta);
-        ta.select();
-        document.execCommand('copy');
-        document.body.removeChild(ta);
-      }
-    };
-
     function showToast(msg) {
       const t = document.getElementById('toast');
       t.textContent = msg;
@@ -9820,7 +9789,10 @@
         if (!(cat === 'todos' || p.cat === cat)) return false;
         if (!normalizeText(p.nome).includes(normalizeText(busca))) return false;
         return true;
-      }).sort((a, b) => Number(itemEstaEsgotado(a)) - Number(itemEstaEsgotado(b)));
+      }).sort((a, b) => {
+        const porDisponibilidade = Number(itemEstaEsgotado(a)) - Number(itemEstaEsgotado(b));
+        return porDisponibilidade || a.nome.localeCompare(b.nome, 'pt-BR', { sensitivity: 'base' });
+      });
       const totalPags = Math.ceil(filtered.length / PER);
       const pageProd = filtered.slice((page - 1) * PER, page * PER);
       const ALMOCO_CATEGORIES = ['Pratos Principais', 'Saladas', 'Lanches', 'Bebidas'];
@@ -9956,7 +9928,7 @@
       const [step, setStep] = useState('cart'); // 'cart' | 'checkout'
       const [form, setForm] = useState({
         nome: '', telefone: '', tipoEntrega: 'entrega', retiradaHora: '', entregaHora: '', maquinaCartao: '',
-        cep: '', rua: '', numero: '', bairro: '', cidade: 'Joinville', uf: 'SC', complemento: '', pagamento: 'pix', troco: '', obs: '',
+        cep: '', rua: '', numero: '', bairro: '', cidade: 'Joinville', uf: 'SC', complemento: '', pagamento: 'cartao', troco: '', obs: '',
       });
       const [cepLoading, setCepLoading] = useState(false);
       const [frete, setFrete] = useState(null);
@@ -10116,7 +10088,7 @@
         const pagLabel = { pix: 'PIX', cartao: 'Cartão na Entrega', dinheiro: 'Dinheiro na Entrega', voucher: 'Voucher' }[form.pagamento];
         let msg = `*PEDIDO — Vida Pura Mercearia*\n`;
         msg += `━━━━━━━━━━━━━━━━━━━━━\n\n`;
-        msg += `*Finalize pelo WhatsApp:* confirmamos estoque, horário exato e *forma de pagamento* (PIX, cartão ou dinheiro) diretamente na conversa com a loja.\n\n`;
+        msg += `*Finalize pelo WhatsApp:* confirmamos estoque, horário exato e *forma de pagamento* diretamente na conversa com a loja.\n\n`;
         msg += `*Cliente:* ${form.nome}\n`;
         msg += `*Telefone:* ${form.telefone}\n`;
         msg += `*Tipo:* ${isRetirada ? 'Retirada na loja' : 'Entrega'}\n`;
@@ -10150,7 +10122,6 @@
         msg += `*Subtotal:* ${fmtBRL(subtotal)}\n`;
         msg += isRetirada ? `*Retirada:* ${fmtBRL(0)}\n` : `*Frete (${freteFinal.bairro}):* ${fmtBRL(freteFinal.valor)}\n`;
         msg += `*TOTAL: ${fmtBRL(totalFinal)}*\n`;
-        if (form.pagamento === 'pix') msg += `\nChave PIX: *${PIX_KEY}*\n`;
         msg += `\nAguardo confirmação do pedido. Obrigado!`;
         window.open(`https://wa.me/${WA}?text=${encodeURIComponent(msg)}`, '_blank');
       };
@@ -10218,7 +10189,7 @@
             <>
               <div className="checkout-form">
                 <div className="checkout-wa-note">
-                  O envio abre o WhatsApp com o resumo do pedido. A equipe confirma valores, trocos e <strong>pagamento</strong> (PIX, cartão ou dinheiro) na conversa — o pedido só vale após essa confirmação.
+                  O envio abre o WhatsApp com o resumo do pedido. A equipe confirma valores, trocos e <strong>pagamento</strong> na conversa — o pedido só vale após essa confirmação.
                 </div>
                 <div className="form-group">
                   <label>Nome completo *</label>
@@ -10316,8 +10287,8 @@
                 <div className="form-group">
                   <label>Forma de pagamento</label>
                   <div className="pagamento-opts">
-                    {[
-                      { id: 'pix', label: 'PIX', icon: <svg viewBox="0 0 24 24" fill="currentColor"><path d="M11.354 2.646a.9.9 0 0 1 1.292 0l2.122 2.122a.9.9 0 0 1 0 1.278l-2.122 2.12a.9.9 0 0 1-1.292 0L9.232 6.046a.9.9 0 0 1 0-1.278zm0 9.908a.9.9 0 0 1 1.292 0l2.122 2.122a.9.9 0 0 1 0 1.278l-2.122 2.12a.9.9 0 0 1-1.292 0L9.232 15.95a.9.9 0 0 1 0-1.278zM6.046 9.232a.9.9 0 0 1 1.278 0l2.122 2.122a.9.9 0 0 1 0 1.292L7.324 14.77a.9.9 0 0 1-1.278 0l-2.12-2.124a.9.9 0 0 1 0-1.292zm9.908 0a.9.9 0 0 1 1.278 0l2.124 2.122a.9.9 0 0 1 0 1.292l-2.124 2.124a.9.9 0 0 1-1.278 0l-2.122-2.124a.9.9 0 0 1 0-1.292z" /></svg> },
+                    {[ 
+                      { id: 'pix', label: 'Pix', icon: <svg viewBox="0 0 24 24" fill="currentColor"><path d="M11.354 2.646a.9.9 0 0 1 1.292 0l2.122 2.122a.9.9 0 0 1 0 1.278l-2.122 2.12a.9.9 0 0 1-1.292 0L9.232 6.046a.9.9 0 0 1 0-1.278zm0 9.908a.9.9 0 0 1 1.292 0l2.122 2.122a.9.9 0 0 1 0 1.278l-2.122 2.12a.9.9 0 0 1-1.292 0L9.232 15.95a.9.9 0 0 1 0-1.278zM6.046 9.232a.9.9 0 0 1 1.278 0l2.122 2.122a.9.9 0 0 1 0 1.292L7.324 14.77a.9.9 0 0 1-1.278 0l-2.12-2.124a.9.9 0 0 1 0-1.292zm9.908 0a.9.9 0 0 1 1.278 0l2.124 2.122a.9.9 0 0 1 0 1.292l-2.124 2.124a.9.9 0 0 1-1.278 0l-2.122-2.124a.9.9 0 0 1 0-1.292z" /></svg> },
                       { id: 'cartao', label: 'Cartão', icon: <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><rect x="2" y="5" width="20" height="14" rx="2" /><line x1="2" y1="10" x2="22" y2="10" /></svg> },
                       { id: 'dinheiro', label: 'Dinheiro', icon: <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><rect x="2" y="6" width="20" height="12" rx="2" /><circle cx="12" cy="12" r="3" /></svg> },
                       { id: 'voucher', label: 'Voucher', icon: <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M3 9a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2v2a2 2 0 0 0 0 4v2a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-2a2 2 0 0 0 0-4Z" /><path d="M13 7v2" /><path d="M13 15v2" /><path d="M13 11v2" /></svg> },
@@ -10327,18 +10298,6 @@
                       </button>
                     ))}
                   </div>
-                  {form.pagamento === 'pix' && (
-                    <div className="pix-info">
-                      Envie o comprovante após o pedido.<br />
-                      <span style={{ fontSize: '.72rem', color: 'rgba(245,240,232,.6)' }}>Chave PIX:</span>
-                      <div className="pix-key-row">
-                        <div className="pix-key">{PIX_KEY}</div>
-                        <button type="button" className="btn-copy" onClick={async () => { await copyText(PIX_KEY); showToast('Chave PIX copiada'); }}>
-                          Copiar
-                        </button>
-                      </div>
-                    </div>
-                  )}
                   {form.pagamento === 'dinheiro' && (
                     <div className="form-group" style={{ marginTop: 8 }}>
                       <label>Valor para troco</label>
